@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  poc-marketplace:
+    build: .
+    image: poc-marketplace:latest
+    container_name: marketplace
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+
