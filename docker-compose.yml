@@ -7,4 +7,3 @@ services:
     mem_limit: 512m
     ports:
       - "8080:8080"
-
