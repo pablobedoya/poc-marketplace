@@ -1,25 +1,7 @@
 package poc.marketplace.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+public class ResourceNotFoundException extends NotFoundException {
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends Exception {
-
-    public ResourceNotFoundException() {
-        super();
-    }
-
-    public ResourceNotFoundException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
-    public ResourceNotFoundException(final String message) {
-        super(message);
-    }
-
-    public ResourceNotFoundException(final Throwable cause) {
-        super(cause);
-    }
+    private static final long serialVersionUID = -5974752228923985312L;
 
 }

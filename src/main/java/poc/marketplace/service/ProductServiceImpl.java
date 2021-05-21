@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import poc.marketplace.dto.ProductRequestDTO;
 import poc.marketplace.dto.ProductResponseDTO;
+import poc.marketplace.exception.ResourceNotFoundException;
 import poc.marketplace.model.Category;
 import poc.marketplace.model.Product;
 import poc.marketplace.repository.CategoryRepository;
@@ -13,7 +14,6 @@ import poc.marketplace.repository.ProductRepository;
 import poc.marketplace.service.factory.ProductFactory;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO getProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found."));
+        Product product = productRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
 
         return ProductResponseDTO.builder().
                 name(product.getName()).
@@ -46,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+    	// TODO: tratar não existência da categoria do produto
         Category category = getCategoryById(productRequestDTO.getCategoryId());
 
         Product product = productFactory.createProductToRegister(productRequestDTO, category);
@@ -66,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Category getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found."));
+        return categoryRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
 }

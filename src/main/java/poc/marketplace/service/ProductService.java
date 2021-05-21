@@ -4,10 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import poc.marketplace.dto.ProductRequestDTO;
 import poc.marketplace.dto.ProductResponseDTO;
-import poc.marketplace.model.Product;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public interface ProductService {
 
