@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    @Query("select new poc.marketplace.dto.ProductResponseDTO(p.name, p.description, p.price, c.name) from Product p" +
+    @Query("select new poc.marketplace.dto.ProductResponseDTO(p.name, p.description, p.price, c.id) from Product p" +
             " join p.category c" +
             " where (:name is null or p.name like %:name%)" +
             " and (:price is null or p.price = :price)")

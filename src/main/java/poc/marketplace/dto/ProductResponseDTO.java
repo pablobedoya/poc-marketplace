@@ -20,7 +20,7 @@ public class ProductResponseDTO {
 
     private BigDecimal price;
 
-    @JsonProperty("category_name")
-    private String categoryName;
+    @JsonProperty("category_id")
+    private Long categoryId;
 
 }

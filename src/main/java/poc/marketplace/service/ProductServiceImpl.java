@@ -1,31 +1,27 @@
 package poc.marketplace.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 import poc.marketplace.dto.ProductRequestDTO;
 import poc.marketplace.dto.ProductResponseDTO;
 import poc.marketplace.exception.ResourceNotFoundException;
+import poc.marketplace.exception.UnprocessableEntityException;
 import poc.marketplace.model.Category;
 import poc.marketplace.model.Product;
 import poc.marketplace.repository.CategoryRepository;
 import poc.marketplace.repository.ProductRepository;
-import poc.marketplace.service.factory.ProductFactory;
 
 import java.math.BigDecimal;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ProductFactory productFactory;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Page<ProductResponseDTO> getProducts(String name, BigDecimal price, Pageable pageable) {
@@ -40,16 +36,17 @@ public class ProductServiceImpl implements ProductService {
                 name(product.getName()).
                 description(product.getDescription()).
                 price(product.getPrice()).
-                categoryName(product.getCategory().getName()).
+                categoryId(product.getCategory().getId()).
                 build();
     }
 
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
     	// TODO: tratar não existência da categoria do produto
-        Category category = getCategoryById(productRequestDTO.getCategoryId());
+		Category category = categoryRepository.findById(productRequestDTO.getCategoryId())
+				.orElseThrow(UnprocessableEntityException::new);
 
-        Product product = productFactory.createProductToRegister(productRequestDTO, category);
+        Product product = productRequestDTO.toEntity(category);
 
         productRepository.save(product);
 
@@ -57,17 +54,13 @@ public class ProductServiceImpl implements ProductService {
                 name(product.getName()).
                 description(product.getDescription()).
                 price(product.getPrice()).
-                categoryName(category.getName()).
+                categoryId(category.getId()).
                 build();
     }
 
     @Override
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
-    }
-
-    private Category getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
 }

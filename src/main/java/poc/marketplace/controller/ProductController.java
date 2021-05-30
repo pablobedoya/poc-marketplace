@@ -1,6 +1,5 @@
 package poc.marketplace.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 import poc.marketplace.dto.ProductRequestDTO;
 import poc.marketplace.dto.ProductResponseDTO;
 import poc.marketplace.service.ProductService;
 
 import java.math.BigDecimal;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping
     public Page<ProductResponseDTO> getProducts(@RequestParam(value = "name", required = false) String name,
