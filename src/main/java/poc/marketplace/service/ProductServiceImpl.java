@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import poc.marketplace.dto.ProductRequestDTO;
 import poc.marketplace.dto.ProductResponseDTO;
+import poc.marketplace.entity.Category;
+import poc.marketplace.entity.Product;
 import poc.marketplace.exception.ResourceNotFoundException;
 import poc.marketplace.exception.UnprocessableEntityException;
-import poc.marketplace.model.Category;
-import poc.marketplace.model.Product;
 import poc.marketplace.repository.CategoryRepository;
 import poc.marketplace.repository.ProductRepository;
 

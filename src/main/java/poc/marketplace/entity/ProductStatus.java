@@ -1,4 +1,4 @@
-package poc.marketplace.model;
+package poc.marketplace.entity;
 
 public enum ProductStatus {
 

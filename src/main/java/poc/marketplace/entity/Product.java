@@ -1,4 +1,4 @@
-package poc.marketplace.model;
+package poc.marketplace.entity;
 
 import lombok.Builder;
 import lombok.Data;

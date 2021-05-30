@@ -3,8 +3,8 @@ package poc.marketplace.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import poc.marketplace.model.Category;
-import poc.marketplace.model.Product;
+import poc.marketplace.entity.Category;
+import poc.marketplace.entity.Product;
 
 import java.math.BigDecimal;
 
